@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"net"
 	"os"
@@ -20,6 +21,13 @@ func main() {
 	if len(os.Args) < 2 {
 		log.Println("Usage: " + os.Args[0] + " <host:port>")
 		return
+	}
+	logfile, err := ioutil.TempFile("", "pergola")
+	if err != nil {
+		log.Println("Unable to create log file")
+	} else {
+		log.Println("Logging to", logfile.Name())
+		log.SetOutput(logfile)
 	}
 	ui, err := gocui.NewGui(gocui.OutputNormal)
 	if err != nil {
