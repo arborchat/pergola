@@ -1,9 +1,10 @@
 package view_state
 
 import (
-	"github.com/whereswaldon/arbor/lib/messages"
 	"log"
 	"sync"
+
+	messages "github.com/arborchat/arbor-go"
 )
 
 type MessageStore interface {

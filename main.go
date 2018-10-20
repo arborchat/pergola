@@ -5,10 +5,10 @@ import (
 	"net"
 	"os"
 
+	messages "github.com/arborchat/arbor-go"
+	"github.com/arborchat/pergola/clientio"
 	"github.com/jroimartin/gocui"
 	"github.com/pkg/profile"
-	"github.com/whereswaldon/arbor/cmd/pergola/clientio"
-	"github.com/whereswaldon/arbor/lib/messages"
 )
 
 func quit(g *gocui.Gui, v *gocui.View) error {

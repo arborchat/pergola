@@ -4,7 +4,7 @@ import (
 	"io"
 	"log"
 
-	messages "github.com/whereswaldon/arbor/lib/messages"
+	messages "github.com/arborchat/arbor-go"
 )
 
 // HandleConn reads from the provided connection and writes new messages to the msgs

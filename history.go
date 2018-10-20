@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"time"
 	"strings"
+	"time"
 
+	messages "github.com/arborchat/arbor-go"
+	vs "github.com/arborchat/pergola/view_state"
 	"github.com/jroimartin/gocui"
 	wrap "github.com/mitchellh/go-wordwrap"
-	vs "github.com/whereswaldon/arbor/cmd/pergola/view_state"
-	"github.com/whereswaldon/arbor/lib/messages"
 )
 
 const ReplyView = "reply-view"
@@ -204,10 +204,10 @@ func (m *History) SendReply(g *gocui.Gui, v *gocui.View) error {
 	g.DeleteView(ReplyView)
 	m.ClearReply()
 	msg := &messages.Message{
-    		Username: "pergola",
-    		Timestamp: time.Now().Unix(),
-		Parent:  id,
-		Content: string(data[:n]),
+		Username:  "pergola",
+		Timestamp: time.Now().Unix(),
+		Parent:    id,
+		Content:   string(data[:n]),
 	}
 	log.Printf("Sending reply to %s: %s\n", id, string(data))
 	m.Outbound <- msg
