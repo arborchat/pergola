@@ -19,7 +19,7 @@ type History struct {
 	vs.ThreadView
 	ViewIDs  map[string]struct{}
 	Query    chan<- string
-	Outbound chan<- *messages.Message
+	Outbound chan<- *messages.ChatMessage
 }
 
 // NewList creates a new History that uses the provided Tree
@@ -28,9 +28,9 @@ type History struct {
 // channel of queries, and a readonly channel of new messages to be sent
 // to the sever. The queries are message UUIDs that
 // the local store has requested the message contents for.
-func NewList(store *Tree) (*History, chan string, <-chan *messages.Message) {
+func NewList(store *Tree) (*History, chan string, <-chan *messages.ChatMessage) {
 	queryChan := make(chan string)
-	outChan := make(chan *messages.Message)
+	outChan := make(chan *messages.ChatMessage)
 	return &History{
 		ThreadView: vs.New(store),
 		ViewIDs:    make(map[string]struct{}),
@@ -203,7 +203,7 @@ func (m *History) SendReply(g *gocui.Gui, v *gocui.View) error {
 	g.DeleteKeybindings(ReplyView) // apparently, deleting the view doesn't do this
 	g.DeleteView(ReplyView)
 	m.ClearReply()
-	msg := &messages.Message{
+	msg := &messages.ChatMessage{
 		Username:  "pergola",
 		Timestamp: time.Now().Unix(),
 		Parent:    id,

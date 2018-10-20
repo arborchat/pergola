@@ -39,7 +39,7 @@ func (t *Tree) MarkSeen(messageId string) {
 
 // Add stores the message and its relationship with its parent within the message
 // tree.
-func (t *Tree) Add(msg *messages.Message) {
+func (t *Tree) Add(msg *messages.ChatMessage) {
 	if msg.UUID == "" {
 		log.Printf("Asked to add message with empty id: %v\n", msg)
 	}
@@ -90,8 +90,8 @@ func (t *Tree) Leaf(id string) string {
 // more than maxLength messages in the slice. If it encounters a message ID that is
 // unknown, it will return that in the query value. Otherwise, query will return the
 // empty string.
-func (t *Tree) GetItems(leafId string, maxLength int) (items []*messages.Message, query string) {
-	items = make([]*messages.Message, maxLength)
+func (t *Tree) GetItems(leafId string, maxLength int) (items []*messages.ChatMessage, query string) {
+	items = make([]*messages.ChatMessage, maxLength)
 	current := t.Get(leafId)
 	if current == nil {
 		return items[:0], ""

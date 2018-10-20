@@ -8,18 +8,18 @@ import (
 )
 
 type MessageStore interface {
-	Get(uuid string) *messages.Message
+	Get(uuid string) *messages.ChatMessage
 	Seen(messageId string) bool
 	MarkSeen(messageId string)
-	Add(msg *messages.Message)
+	Add(msg *messages.ChatMessage)
 	Children(id string) []string
 	Leaf(id string) string
-	GetItems(leafId string, maxLength int) (items []*messages.Message, query string)
+	GetItems(leafId string, maxLength int) (items []*messages.ChatMessage, query string)
 }
 
 type ThreadView struct {
 	MessageStore
-	Thread    []*messages.Message
+	Thread    []*messages.ChatMessage
 	CursorID  string
 	LeafID    string
 	ReplyToId string
@@ -127,11 +127,11 @@ func (t *ThreadView) ViewSubtreeOf(cursor string) {
 	t.CursorID = cursor
 }
 
-func (t *ThreadView) Ancestry() []*messages.Message {
+func (t *ThreadView) Ancestry() []*messages.ChatMessage {
 	return t.Thread
 }
 
-func IndexOfMessageId(element string, inContainer []*messages.Message) int {
+func IndexOfMessageId(element string, inContainer []*messages.ChatMessage) int {
 	for i, e := range inContainer {
 		if e.UUID == element {
 			return i

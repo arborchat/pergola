@@ -37,7 +37,7 @@ func main() {
 	defer ui.Close()
 
 	layoutManager, queries, outbound := NewList(NewTree(messages.NewStore()))
-	msgs := make(chan *messages.Message)
+	msgs := make(chan *messages.ChatMessage)
 	ui.Highlight = true
 	ui.Cursor = true
 	ui.SelFgColor = gocui.ColorGreen
@@ -48,7 +48,7 @@ func main() {
 		log.Println("Unable to connect", err)
 		return
 	}
-	welcomes := make(chan *messages.ArborMessage)
+	welcomes := make(chan *messages.ProtocolMessage)
 	go clientio.HandleNewMessages(conn, msgs, welcomes)
 	go func() {
 		for newMsg := range msgs {
